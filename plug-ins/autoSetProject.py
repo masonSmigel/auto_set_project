@@ -110,8 +110,10 @@ def find_workspace(scene_path, limit=10):
     path = scene_path[0: scene_path.rfind(os.path.basename(scene_path))]
     for i in range(limit):
         path = path[0:path.rfind(os.path.basename(path)) - 1]
-        if path[-1:] != ":" and os.path.exists(path + "/workspace.mel"):
-            return path
+        r_path = path.replace('\\', '/')
+        r_path = r_path.replace('//', '/')
+        if r_path[-1:] != ":" and os.path.exists(r_path + "/workspace.mel"):
+            return r_path
 
 
 def set_project(retCode, fileObject, clientData=None):
